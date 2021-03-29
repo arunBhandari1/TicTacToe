@@ -12,7 +12,7 @@ static int sockfd;
 void * msg_print(void *fd);
 void * msg_type(void *fd); 
 void print_error(char *);
-
+pthread_mutex_t lock;
 int main(int argc, char *argv[]) {
 	struct addrinfo *host_ai;
 	struct addrinfo hint;
@@ -99,6 +99,7 @@ void * msg_print(void *fd)
 				print_error("Error receiveing");
 				exit(0);	
 			}
+		pthread_mutex_lock(&lock);
 		int j;
 		for (j=0;j<9;j++)
         	{
@@ -116,6 +117,7 @@ void * msg_print(void *fd)
                         	printf("\n");
                 	}
        		}
+		pthread_mutex_unlock(&lock);
 			printf("-------------------------\n");			
 		char result[5];
 		char won[5]="won!\0";
@@ -136,7 +138,7 @@ void * msg_print(void *fd)
 		{
 			printf("You lost\n");
 		}
-
+		
 
 	}
 	}
