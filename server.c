@@ -316,41 +316,41 @@ if ((key = ftok(path, tokid)) == -1)
 		printf("----------------\n");
 
 
-		char won[4]="won!";
-		char lost[4]= "Lost";
+		char won[5]="won!\0";
+		char lost[5]= "Lost\0";
 		if (k==1)
 		{
 		
 			if (clfd%2==0)
 			{
 			printf("Clfd  1 won");
-				send(clfd,&won,4,0 );
-				send(clfd+1,&lost,4,0);
+				send(clfd,&won,5,0 );
+				send(clfd+1,&lost,5,0);
 			}
 			else
 			{
 				
-				send(clfd+1,&won,4,0);
-				send(clfd,&lost,4,0);
+				send(clfd+1,&won,5,0);
+				send(clfd,&lost,5,0);
 			}
 		}
 		else if (k==0)
 		 {
                         if (clfd%2==1)
                         {
-                                send(clfd,&won,4,0 );
-                        	send(clfd-1,&lost,4,0);
+                                send(clfd,&won,5,0 );
+                        	send(clfd-1,&lost,5,0);
 			}
                         else
                         {
-				send(clfd,&won,4,0);
-                                send(clfd-1,&lost,4,0);
+				send(clfd,&won,5,0);
+                                send(clfd-1,&lost,5,0);
                         }
                 }
 		else{
-			char nost[4]="Cont";
-			send(clfd,&nost,4,0);
-			send(clfd+1,&nost,4,0);
+			char nost[5]="Cont\0";
+			send(clfd,&nost,5,0);
+			send(clfd+1,&nost,5,0);
 		}
 	}
 	

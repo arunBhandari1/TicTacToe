@@ -71,7 +71,6 @@ int main(int argc, char *argv[]) {
 		scanf(" %d", &p);
 		while(getchar() !='\n' );
 		fflush(stdin);
-		printf("Sending p: %d ", p);
 		
 		if (send(sockfd,&p ,4,0)<0)
                 {
@@ -118,31 +117,30 @@ void * msg_print(void *fd)
                 	}
        		}
 			printf("-------------------------\n");			
-		char result[4];
-		char won[4]="won!";
-		char lost[4]= "Lost";
+		char result[5];
+		char won[5]="won!\0";
+		char lost[5]= "Lost\0";
 	//	memset(result,'\0',4);
 		if (recv(sockfd,&result,4,0)<=0)
 		{
 			
 			exit(1);
 		}
-		printf("Result : %s\n",result);
 		int res;
-		if (res=strcmp(result,won))
+		if (strcmp(result,won)==0)
 		{
 		
-			printf("You won");
+			printf("You won\n");
 		}
-		else if (res=strcmp(result,lost)==0)
+		else if (strcmp(result,lost)==0)
 		{
-			printf("You lost");
+			printf("You lost\n");
 		}
-		printf("%d",res);
 
 
 	}
 	}
+
 void print_error(char *str) {
 	printf("%s: %s\n", str, strerror(errno));
 	exit(1);
