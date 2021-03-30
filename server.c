@@ -2,7 +2,7 @@
  * socket_exam.c
  * derived from Advanced Programming in the UNIX Environment, 3rd Edition
  *
- * Eric McGregor 02/27/20
+	 * Eric McGregor 02/27/20
  */
 
 #include <string.h>	
@@ -47,7 +47,7 @@ int semid;
 void printids(const char *s);
 void remove_semaphore_set(char* user, int semid); 
 
-int main(int argc, char *argv[]) 
+		int main(int argc, char *argv[]) 
 {
 	char *host_name = malloc(HOST_NAME_MAX);
 	memset(host_name, 0, HOST_NAME_MAX);
@@ -130,7 +130,7 @@ void * thread_do(void *fd)
 
 	int clfd = *(int*) fd;
 	if (clfd%2==0){
-if ((key = ftok(path, tokid)) == -1)
+	if ((key = ftok(path, tokid)) == -1)
 {
                 perror("Can not create token");
                 return NULL;
@@ -198,10 +198,15 @@ if ((key = ftok(path, tokid)) == -1)
 		{
 			printf("- ");
 		}
-		else
-		{
-			printf("%d ", semValue);
-		}
+		 else if(a[j]==1)
+                {
+                        printf("X ");
+                }
+
+                else
+                 {
+                        printf("O ");
+                 }
 		if (j==2 || j == 5 || j ==8)
 		{
 			printf("\n");
@@ -245,7 +250,6 @@ if ((key = ftok(path, tokid)) == -1)
 			k=1;
 		}
 
-		printf("Winner1");
 	}
 	else if((a[0]==a[3])&&(a[3]==a[6]) && (a[0]==1||a[0]==0))
 	{
@@ -257,7 +261,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winner2");
 	}
 	
 	else if((a[0]==a[4])&&(a[0]==a[8]) && (a[0]==1||a[0]==0))
@@ -270,7 +273,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winner3");
 	}
 	else if((a[6]==a[4])&&(a[4]==a[2]) && (a[6]==1||a[6]==0))
 	{
@@ -282,7 +284,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winner4");
 	}
 
 	else if((a[6]==a[7])&&(a[7]==a[8]) && (a[6]==1||a[6]==0))
@@ -295,7 +296,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winner5");
 	}
 	else if(a[5]==a[2]&& a[2]==a[8] && (a[8]==1||a[8]==0))
 	{
@@ -307,7 +307,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winner6");
 	}
 	else if((a[1]==a[4])&&(a[1]==a[7]) && (a[1]==1||a[1]==0))
 	{
@@ -319,7 +318,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winner7");
 	}
 	else if((a[0]==a[4])&&(a[0]==a[8]) && (a[0]==1||a[0]==0))
 	{
@@ -331,7 +329,6 @@ if ((key = ftok(path, tokid)) == -1)
                 {
                         k=1;
                 }
-		printf("Winer8");
 	}
 
 

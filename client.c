@@ -66,8 +66,7 @@ int main(int argc, char *argv[]) {
         {
 	
                	int p;
-		//memset(&p,'\0',4);		
-		printf("Enter place 0-9 \n");
+		printf("Enter placeholder 0-8: \n");
 		scanf(" %d", &p);
 		printf("place holder sent: %d \n",p);
 		
@@ -98,7 +97,6 @@ void * msg_print(void *fd)
 				print_error("Error receiveing");
 				exit(0);	
 			}
-			printf("Received: %d\n ", &clfd);
 		int j=0;
 		for (j=0;j<9;j++)
         	{
@@ -107,9 +105,14 @@ void * msg_print(void *fd)
                 	{
                         	printf("- ");
                 	}
+			else if(clfd[j]==1)
+			{
+				printf("X ");
+			}
+		
                		 else
                 	{
-                        	printf("%d ", clfd[j]);
+                        	printf("O ");
                 	}
                 	if (j==2 || j == 5 || j ==8)
                 	{
@@ -127,8 +130,6 @@ void * msg_print(void *fd)
 			
 			exit(1);
 		}
-		printf("%s\n",result);
-		int res;
 		if (strcmp(result,won)==0)
 		{
 		
