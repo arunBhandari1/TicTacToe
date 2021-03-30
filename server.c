@@ -207,15 +207,29 @@ if ((key = ftok(path, tokid)) == -1)
 			printf("\n");
 		}
 	}
-	int b=1;	
-	if (send(descri[0],a,36,0)<=0){
 	
+	if (clfd%2==0){
+		if (send(clfd,a,36,0)<=0)
+		{
 			printf("Sending array error 1 \n");
 		}
-	if (send(descri[1],a,36,0)<=0){
-		printf("Sending array error 2 \n");
-	}
+		if (send(clfd+1,a,36,0)<=0)
+		{
+			printf("Sending array error 2 \n");
+		}
 	
+	}
+	else
+	{
+		 if (send(clfd,a,36,0)<=0)
+                {   
+                        printf("Sending array error 1 \n");
+                }   
+                if (send(clfd-1,a,36,0)<=0)
+                {   
+                        printf("Sending array error 2 \n");
+                }   	
+	}
 
 	int k=2;
 	//checking if somebody won or not

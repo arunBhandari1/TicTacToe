@@ -91,14 +91,14 @@ void * msg_print(void *fd)
 	while(1)
 		{
 			int clfd[10];
-			memset(&clfd,'\0',4);
+			memset(&clfd,'\0',40);
 			if(recv(sockfd,&clfd,40,0)<=0)
 			{
 				close(sockfd);
 				print_error("Error receiveing");
 				exit(0);	
 			}
-			printf("Received: %d\n ", clfd);
+			printf("Received: %d\n ", &clfd);
 		int j=0;
 		for (j=0;j<9;j++)
         	{
