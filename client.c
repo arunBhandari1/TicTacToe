@@ -12,11 +12,7 @@ static int sockfd;
 void * msg_print(void *fd);
 void * msg_type(void *fd); 
 void print_error(char *);
-pthread_mutex_t lock;
 
-pthread_mutex_t lock1;
-pthread_mutex_t lock2;
-pthread_mutex_t lock3;
 int main(int argc, char *argv[]) {
 	struct addrinfo *host_ai;
 	struct addrinfo hint;
@@ -70,11 +66,10 @@ int main(int argc, char *argv[]) {
         {
 	
                	int p;
-		memset(&p,'\0',4);		
+		//memset(&p,'\0',4);		
 		printf("Enter place 0-9 \n");
 		scanf(" %d", &p);
-		//while(getchar() !='\n' );
-		//fflush(stdin);
+		printf("place holder sent: %d \n",p);
 		
 		if (send(sockfd,&p ,4,0)<0)
                 {
@@ -95,22 +90,15 @@ void * msg_print(void *fd)
 		
 	while(1)
 		{
-				
-		pthread_mutex_lock(&lock1);
-			int i=0;
-			printf("Value of i :%s\n",i);
-		//	pthread_mutex_lock(&lock2);		
-			int clfd[9];
-			memset(&clfd,'\0',36);
-			if(recv(sockfd,&clfd,36,0)<=0)
+			int clfd[10];
+			memset(&clfd,'\0',4);
+			if(recv(sockfd,&clfd,40,0)<=0)
 			{
 				close(sockfd);
 				print_error("Error receiveing");
 				exit(0);	
 			}
-//		pthread_mutex_unlock(&lock2);
-
-//		pthread_mutex_lock(&lock);
+			printf("Received: %d\n ", clfd);
 		int j=0;
 		for (j=0;j<9;j++)
         	{
@@ -128,21 +116,18 @@ void * msg_print(void *fd)
                         	printf("\n");
                 	}
        		}
-//		pthread_mutex_unlock(&lock);
 		
 		printf("-------------------------\n");			
-		printf("whats up this shit\n");	
 		char result[5];
 		memset(result,'\0',5);
 		char won[5]="won!\0";
 		char lost[5]= "Lost\0";
-	//	memset(result,'\0',4);
-		if (recv(sockfd,&result,4,0)<=0)
+		if (recv(sockfd,result,5,0)<=0)
 		{
 			
 			exit(1);
 		}
-		printf("%s",result);
+		printf("%s\n",result);
 		int res;
 		if (strcmp(result,won)==0)
 		{
@@ -153,9 +138,7 @@ void * msg_print(void *fd)
 		{
 			printf("You lost\n");
 		}
-		pthread_mutex_unlock(&lock1);	
-		i++;
-	}
+		}
 	}
 
 void print_error(char *str) {

@@ -163,12 +163,15 @@ if ((key = ftok(path, tokid)) == -1)
 	{
 	//receving the place holder
 	int set;
+	memset(&set,'\0',4);
 		if (recv(clfd,&set,4,0)<=0)
 		{
 			printf("bye");
 			pthread_exit(0);
 		}
-
+	printf("set: %d\n", set);	
+	
+	
 	//odd desc use 0 and even use 1
 	if (clfd%2==0){
 
@@ -184,7 +187,7 @@ if ((key = ftok(path, tokid)) == -1)
 
 	int semValue;
 	int a[9];
-
+	memset(a,'\0',36);
 	//printing the tic tac toe board
 	for (j=0;j<9;j++)
 	{
@@ -204,10 +207,15 @@ if ((key = ftok(path, tokid)) == -1)
 			printf("\n");
 		}
 	}
+	int b=1;	
+	if (send(descri[0],a,36,0)<=0){
 	
-	send(descri[0],&a,36,0);
-	send(descri[1],&a,36,0);
-
+			printf("Sending array error 1 \n");
+		}
+	if (send(descri[1],a,36,0)<=0){
+		printf("Sending array error 2 \n");
+	}
+	
 
 	int k=2;
 	//checking if somebody won or not
@@ -323,13 +331,13 @@ if ((key = ftok(path, tokid)) == -1)
 		
 			if (clfd%2==0)
 			{
-			printf("Clfd  1 won");
+				printf("We got a winner\n");
 				send(clfd,&won,5,0 );
 				send(clfd+1,&lost,5,0);
 			}
 			else
 			{
-				
+					printf("We got a winner\n");
 				send(clfd+1,&won,5,0);
 				send(clfd,&lost,5,0);
 			}
@@ -338,20 +346,27 @@ if ((key = ftok(path, tokid)) == -1)
 		 {
                         if (clfd%2==1)
                         {
+
+				printf("We got a winner\n");
                                 send(clfd,&won,5,0 );
-                        	send(clfd-1,&lost,5,0);
+                   	    	send(clfd-1,&lost,5,0);
 			}
                         else
                         {
+				printf("We got a winner\n");
 				send(clfd,&won,5,0);
                                 send(clfd-1,&lost,5,0);
                         }
                 }
 		else{
+
+			printf("No winner yet\n");
 			char nost[5]="Cont\0";
-			send(clfd,&nost,5,0);
-			send(clfd+1,&nost,5,0);
+			
+			send(descri[0],&nost,5,0);
+			send(descri[1],&nost,5,0);
 		}
+
 	}
 	
 	close(clfd);
