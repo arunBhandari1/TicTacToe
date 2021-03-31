@@ -89,7 +89,7 @@ void * msg_print(void *fd)
 		
 	while(1)
 		{
-			int clfd[10];
+			int clfd[40];
 			memset(&clfd,'\0',40);
 			if(recv(sockfd,&clfd,40,0)<=0)
 			{
@@ -112,7 +112,7 @@ void * msg_print(void *fd)
 		
                		 else
                 	{
-                        	printf("O ");
+                        	printf("%d ", clfd[j]);
                 	}
                 	if (j==2 || j == 5 || j ==8)
                 	{
