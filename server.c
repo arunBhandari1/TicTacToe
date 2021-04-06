@@ -34,7 +34,7 @@
 
 extern int errno;
 int descri[1096];
-int size=0;
+int size=4;
 void * thread_do(void *arg);
 
 char* path = "/tmp";
@@ -135,9 +135,22 @@ void remove_semaphore_set(char* user, int semid);
 
 
 void * thread_do(void *fd) 
-{
-
-	int clfd = *(int*) fd;
+{	
+	int clfd;	
+//	int early=0;
+//	if (early==1)
+//	{
+//		clfd=clfd+1;
+		 clfd = *(int*) fd;
+//	}
+//	else
+//	{
+	
+//		 clfd = *(int*) fd;
+//	}
+	descri[size]=clfd;
+	
+	    printf("Clfd:%d and size:%d ", clfd, size);
 	if (clfd%2==0)
 	{
 		tokid = tokid +1;
@@ -174,9 +187,27 @@ void * thread_do(void *fd)
 		
 			//receving the place holder
 			int set;
+			int z;
 			memset(&set,'\0',4);
 			if (recv(clfd,&set,4,0)<=0)
 			{
+				int sub[10];
+				sub[0]=9;
+				if(clfd%2==0)
+				{
+//					if (clfd==size)
+//					{
+//						early=1;
+//						printf("No pair available\n");
+//					}
+					send(clfd+1,sub,40,0);
+					
+				}
+				else
+				{
+					send(clfd-1,sub,40,0);
+					close(clfd-1);
+				}
 				printf("Cannot receive the place holder\n");
 				pthread_exit(0);
 			}
@@ -232,6 +263,10 @@ void * thread_do(void *fd)
 				}
 				
 				if (clfd%2==0){
+				if (z==1)
+				{
+					a[0]=9;
+				}
 					if (send(clfd,a,40,0)<=0)
 					{
 						printf("Sending array error 1 \n");
@@ -251,7 +286,8 @@ void * thread_do(void *fd)
 					if (send(clfd-1,a,40,0)<=0)
 					{   
 						printf("Sending array error 2 \n");
-					}   	
+					}   
+				
 				}
 
 				int k=2;
@@ -405,11 +441,12 @@ void * thread_do(void *fd)
 							send(clfd-1,&nost,5,0);
 						}
 					}
+					size++;
 
 				}
 				
 				close(clfd);
-
+				
 				}
 
 			// sdfsdEND OF FILE
