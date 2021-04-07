@@ -150,7 +150,6 @@ void * thread_do(void *fd)
 //	}
 	descri[size]=clfd;
 	
-	    printf("Clfd:%d and size:%d ", clfd, size);
 	if (clfd%2==0)
 	{
 		tokid = tokid +1;
@@ -171,7 +170,6 @@ void * thread_do(void *fd)
 		for (i=0 ; i<9; i++)
 		{
 
-
 			if ((semctl(semid[clfd], i, SETVAL, 2)) == -1)
 			{
 				perror("Error setting semaphore to 0");
@@ -185,6 +183,7 @@ void * thread_do(void *fd)
 		while(1)
 		{
 		
+	   		 printf("Clfd:%d  ", clfd);
 			//receving the place holder
 			int set;
 			int z;
@@ -195,18 +194,11 @@ void * thread_do(void *fd)
 				sub[0]=9;
 				if(clfd%2==0)
 				{
-//					if (clfd==size)
-//					{
-//						early=1;
-//						printf("No pair available\n");
-//					}
 					send(clfd+1,sub,40,0);
-					
 				}
 				else
 				{
 					send(clfd-1,sub,40,0);
-					close(clfd-1);
 				}
 				printf("Cannot receive the place holder\n");
 				pthread_exit(0);

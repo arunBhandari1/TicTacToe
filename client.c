@@ -54,14 +54,15 @@ int main(int argc, char *argv[])
 	 {
         	  perror("detach error"); 
 	}
-	printf("Enter placeholder 0-8: \n");
+	printf("Enter place holder  0-8: \n");
 	 while(1)
         {	int p;
 		scanf(" %d", &p);
 		sen=1;
+		printf("\n");
 		if (send(sockfd,&p ,4,0)<0)
                 {
-			close(sockfd);
+			
                		print_error("Error sending string");}	}
 }
 
@@ -75,11 +76,9 @@ void * msg_print(void *fd)
 			{
 				close(sockfd);
 				print_error("Error receiveing");
-				exit(0);	
 			}
 			if (clfd[0]==9){
 				printf("You win by abandoment\n");
-				exit(0);
 			}
 		int j=0;
 		for (j=0;j<9;j++)
